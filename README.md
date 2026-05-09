@@ -2,7 +2,7 @@
 
 Website portfolio personal yang dibangun dengan HTML, CSS, dan JavaScript murni tanpa framework apapun.
 
-🔗 **Live:** [henrith.github.io/portfolio](https://henrith.github.io/portfolio) 
+🔗 **Live:** [henrith.github.io/portfolio](https://github.com/Henrith14/portofolio-website.git) 
 
 ---
 
