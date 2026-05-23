@@ -2,7 +2,7 @@
 
 Website portfolio personal yang dibangun dengan HTML, CSS, dan JavaScript murni tanpa framework apapun.
 
-🔗 **Live:** [henrith.github.io/portfolio](https://github.com/Henrith14/portofolio-website.git) 
+🔗 **Live:** [henrith.github.io/portfolio](https://henrith.github.io/portofolio-website) *(update link setelah deploy)*
 
 ---
 
@@ -46,7 +46,7 @@ Tidak perlu install apapun. Cukup:
 
 1. Clone repo ini
 ```bash
-git clone https://github.com/username/portfolio.git
+git clone https://github.com/Henrith14/portofolio-website.git
 ```
 
 2. Buka file `portfolio-henri.html` langsung di browser
@@ -79,4 +79,5 @@ Atau buka lewat Live Server di VS Code untuk pengalaman development yang lebih b
 **Henri Tri Herdiansyah**  
 Mahasiswa Informatika — UPN Veteran Jawa Timur  
 📧 henrith02@gmail.com  
-📸 [@henrith_](https://instagram.com/henrith_)
+📸 [@henrith_](https://instagram.com/henrith_)  
+💻 [GitHub](https://github.com/Henrith14)

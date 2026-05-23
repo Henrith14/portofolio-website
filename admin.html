@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Henri Porto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Henri<span>.</span></div>
+    <h2>Admin Panel</h2>
+    <p>Masukkan password untuk melanjutkan</p>
+    <div class="login-form">
+      <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter') doLogin()">
+      <button class="btn-primary" onclick="doLogin()">Masuk</button>
+      <div id="loginError" class="login-error" style="display:none;">Password salah.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" style="display:none;">
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">Henri<span>.</span> <span class="admin-badge">Admin</span></div>
+    <div class="admin-nav-right">
+      <span id="saveStatus" class="save-status"></span>
+      <a href="portfolio-henri.html" target="_blank" class="btn-outline">&#127760; Lihat Porto</a>
+      <button class="btn-danger" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <div>
+        <h1>Kelola Proyek</h1>
+        <p>Tambah, edit, atau hapus proyek yang tampil di portfolio.</p>
+      </div>
+      <button class="btn-primary" onclick="openModal()">&#43; Tambah Proyek</button>
+    </div>
+
+    <!-- CONFIG SECTION -->
+    <div class="config-card">
+      <div class="config-title">&#9881; Konfigurasi GitHub API</div>
+      <div class="config-grid">
+        <div class="form-group">
+          <label>GitHub Token</label>
+          <input type="password" id="cfgToken" placeholder="ghp_xxxxxxxxxx" />
+          <small>Token hanya disimpan di browser (localStorage), tidak dikirim ke server lain.</small>
+        </div>
+        <div class="form-group">
+          <label>Username GitHub</label>
+          <input type="text" id="cfgUser" placeholder="Henrith14" value="Henrith14" />
+        </div>
+        <div class="form-group">
+          <label>Nama Repo</label>
+          <input type="text" id="cfgRepo" placeholder="portofolio-website" value="portofolio-website" />
+        </div>
+        <div class="form-group">
+          <label>Path File JSON di Repo</label>
+          <input type="text" id="cfgPath" placeholder="projects.json" value="projects.json" />
+        </div>
+      </div>
+      <button class="btn-outline" onclick="saveConfig()">&#128190; Simpan Konfigurasi</button>
+    </div>
+
+    <!-- PROJECT LIST -->
+    <div id="projectList" class="project-list"></div>
+  </main>
+</div>
+
+<!-- MODAL TAMBAH/EDIT -->
+<div id="modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this) closeModal()">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="modalTitle">Tambah Proyek</h3>
+      <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="fId">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Judul Proyek *</label>
+          <input type="text" id="fTitle" placeholder="Nama proyek">
+        </div>
+        <div class="form-group">
+          <label>Icon (emoji)</label>
+          <input type="text" id="fIcon" placeholder="⚡" maxlength="4">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Deskripsi *</label>
+        <textarea id="fDesc" rows="3" placeholder="Deskripsi singkat proyek..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tags (pisah koma)</label>
+          <input type="text" id="fTags" placeholder="PHP Native, MySQL">
+        </div>
+        <div class="form-group">
+          <label>Badge</label>
+          <input type="text" id="fBadge" placeholder="Featured / Machine Learning">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Fitur Unggulan (pisah koma)</label>
+        <input type="text" id="fFeatures" placeholder="Auth System, CRUD Lengkap, Upload Foto">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Link Demo</label>
+          <input type="text" id="fDemo" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Link Landing Page</label>
+          <input type="text" id="fLanding" placeholder="https://...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Link GitHub</label>
+        <input type="text" id="fGithub" placeholder="https://github.com/...">
+      </div>
+      <div class="form-group checkbox-group">
+        <label><input type="checkbox" id="fFeatured"> Tandai sebagai Featured</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeModal()">Batal</button>
+      <button class="btn-primary" onclick="saveProject()">&#128190; Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div id="confirmOverlay" class="modal-overlay" style="display:none;">
+  <div class="modal-card" style="max-width:400px;">
+    <div class="modal-header">
+      <h3>Hapus Proyek?</h3>
+      <button class="modal-close" onclick="closeConfirm()">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--text-dim);">Proyek "<span id="confirmName" style="color:var(--text);font-weight:600;"></span>" akan dihapus permanen dari portfolio.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeConfirm()">Batal</button>
+      <button class="btn-danger" onclick="confirmDelete()">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────
+const ADMIN_PASSWORD = 'henri2026'; // Ganti password di sini
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let projects = [];
+let deleteTargetId = null;
+
+// ── LOGIN ─────────────────────────────────────────────────────────────
+function doLogin() {
+  const val = document.getElementById('passwordInput').value;
+  if (val === ADMIN_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadConfig();
+    loadProjects();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('passwordInput').value = '';
+}
+
+// ── CONFIG ────────────────────────────────────────────────────────────
+function saveConfig() {
+  const cfg = {
+    token: document.getElementById('cfgToken').value.trim(),
+    user:  document.getElementById('cfgUser').value.trim(),
+    repo:  document.getElementById('cfgRepo').value.trim(),
+    path:  document.getElementById('cfgPath').value.trim(),
+  };
+  localStorage.setItem('gh_cfg', JSON.stringify(cfg));
+  setStatus('Konfigurasi disimpan ✓', 'success');
+}
+
+function loadConfig() {
+  const cfg = JSON.parse(localStorage.getItem('gh_cfg') || '{}');
+  if (cfg.token) document.getElementById('cfgToken').value = cfg.token;
+  if (cfg.user)  document.getElementById('cfgUser').value  = cfg.user;
+  if (cfg.repo)  document.getElementById('cfgRepo').value  = cfg.repo;
+  if (cfg.path)  document.getElementById('cfgPath').value  = cfg.path;
+}
+
+function getConfig() {
+  return JSON.parse(localStorage.getItem('gh_cfg') || '{}');
+}
+
+// ── LOAD PROJECTS ─────────────────────────────────────────────────────
+async function loadProjects() {
+  try {
+    const res = await fetch('projects.json?t=' + Date.now());
+    projects = await res.json();
+    renderList();
+  } catch (e) {
+    projects = [];
+    renderList();
+  }
+}
+
+// ── RENDER LIST ───────────────────────────────────────────────────────
+function renderList() {
+  const container = document.getElementById('projectList');
+  if (projects.length === 0) {
+    container.innerHTML = '<div class="empty-state">Belum ada proyek. Klik "+ Tambah Proyek" untuk mulai.</div>';
+    return;
+  }
+  container.innerHTML = projects.map((p, i) => `
+    <div class="project-row">
+      <div class="project-row-icon">${p.icon || '📁'}</div>
+      <div class="project-row-info">
+        <div class="project-row-title">
+          ${p.title}
+          ${p.featured ? '<span class="badge-featured">Featured</span>' : ''}
+          ${p.badge && !p.featured ? `<span class="badge-alt">${p.badge}</span>` : ''}
+        </div>
+        <div class="project-row-tags">${(p.tags || []).join(' · ')}</div>
+      </div>
+      <div class="project-row-actions">
+        <button class="btn-icon" onclick="moveUp(${i})" title="Naik" ${i===0?'disabled':''}>↑</button>
+        <button class="btn-icon" onclick="moveDown(${i})" title="Turun" ${i===projects.length-1?'disabled':''}>↓</button>
+        <button class="btn-outline btn-sm" onclick="openModal(${i})">&#9998; Edit</button>
+        <button class="btn-danger btn-sm" onclick="openConfirm(${i})">&#128465; Hapus</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── REORDER ───────────────────────────────────────────────────────────
+function moveUp(i) {
+  if (i === 0) return;
+  [projects[i-1], projects[i]] = [projects[i], projects[i-1]];
+  renderList();
+}
+function moveDown(i) {
+  if (i === projects.length - 1) return;
+  [projects[i], projects[i+1]] = [projects[i+1], projects[i]];
+  renderList();
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────
+function openModal(index = null) {
+  const modal = document.getElementById('modal');
+  modal.style.display = 'flex';
+  if (index !== null) {
+    const p = projects[index];
+    document.getElementById('modalTitle').textContent = 'Edit Proyek';
+    document.getElementById('fId').value       = index;
+    document.getElementById('fTitle').value    = p.title || '';
+    document.getElementById('fIcon').value     = p.icon || '';
+    document.getElementById('fDesc').value     = p.description || '';
+    document.getElementById('fTags').value     = (p.tags || []).join(', ');
+    document.getElementById('fBadge').value    = p.badge || '';
+    document.getElementById('fFeatures').value = (p.features || []).join(', ');
+    document.getElementById('fDemo').value     = p.links?.demo || '';
+    document.getElementById('fLanding').value  = p.links?.landing || '';
+    document.getElementById('fGithub').value   = p.links?.github || '';
+    document.getElementById('fFeatured').checked = p.featured || false;
+  } else {
+    document.getElementById('modalTitle').textContent = 'Tambah Proyek';
+    document.getElementById('fId').value = '';
+    ['fTitle','fIcon','fDesc','fTags','fBadge','fFeatures','fDemo','fLanding','fGithub'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('fFeatured').checked = false;
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+function saveProject() {
+  const title = document.getElementById('fTitle').value.trim();
+  const desc  = document.getElementById('fDesc').value.trim();
+  if (!title || !desc) { alert('Judul dan deskripsi wajib diisi.'); return; }
+
+  const project = {
+    id:          Date.now(),
+    title,
+    description: desc,
+    icon:        document.getElementById('fIcon').value.trim() || '📁',
+    tags:        document.getElementById('fTags').value.split(',').map(s => s.trim()).filter(Boolean),
+    badge:       document.getElementById('fBadge').value.trim(),
+    badgeType:   document.getElementById('fBadge').value.trim().toLowerCase() !== 'featured' ? 'alt' : '',
+    features:    document.getElementById('fFeatures').value.split(',').map(s => s.trim()).filter(Boolean),
+    links: {
+      demo:    document.getElementById('fDemo').value.trim(),
+      landing: document.getElementById('fLanding').value.trim(),
+      github:  document.getElementById('fGithub').value.trim(),
+    },
+    featured: document.getElementById('fFeatured').checked,
+    iconBg: '',
+  };
+
+  const idxVal = document.getElementById('fId').value;
+  if (idxVal !== '') {
+    projects[parseInt(idxVal)] = { ...projects[parseInt(idxVal)], ...project };
+  } else {
+    projects.push(project);
+  }
+
+  closeModal();
+  renderList();
+}
+
+// ── DELETE ────────────────────────────────────────────────────────────
+function openConfirm(index) {
+  deleteTargetId = index;
+  document.getElementById('confirmName').textContent = projects[index].title;
+  document.getElementById('confirmOverlay').style.display = 'flex';
+}
+function closeConfirm() {
+  deleteTargetId = null;
+  document.getElementById('confirmOverlay').style.display = 'none';
+}
+function confirmDelete() {
+  if (deleteTargetId !== null) {
+    projects.splice(deleteTargetId, 1);
+    renderList();
+    closeConfirm();
+  }
+}
+
+// ── PUSH TO GITHUB ────────────────────────────────────────────────────
+async function pushToGitHub() {
+  const cfg = getConfig();
+  if (!cfg.token || !cfg.user || !cfg.repo || !cfg.path) {
+    alert('Lengkapi konfigurasi GitHub API terlebih dahulu.');
+    return;
+  }
+
+  setStatus('Menyimpan ke GitHub...', 'loading');
+
+  const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${cfg.path}`;
+
+  try {
+    // 1. Ambil SHA file yang ada
+    let sha = null;
+    const getRes = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `token ${cfg.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+      }
+    });
+    if (getRes.ok) {
+      const data = await getRes.json();
+      sha = data.sha;
+    }
+
+    // 2. Encode konten ke base64
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(projects, null, 2))));
+
+    // 3. Push ke GitHub
+    const body = {
+      message: `update projects.json — ${new Date().toLocaleString('id-ID')}`,
+      content,
+      ...(sha ? { sha } : {}),
+    };
+
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${cfg.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (putRes.ok) {
+      setStatus('Berhasil disimpan ke GitHub ✓ — Vercel akan redeploy otomatis', 'success');
+    } else {
+      const err = await putRes.json();
+      setStatus('Gagal: ' + (err.message || 'Unknown error'), 'error');
+    }
+  } catch (e) {
+    setStatus('Error: ' + e.message, 'error');
+  }
+}
+
+// ── STATUS ────────────────────────────────────────────────────────────
+function setStatus(msg, type) {
+  const el = document.getElementById('saveStatus');
+  el.textContent = msg;
+  el.className = 'save-status ' + type;
+  if (type === 'success') setTimeout(() => { el.textContent = ''; el.className = 'save-status'; }, 5000);
+}
+</script>
+
+<!-- FLOATING SAVE BUTTON -->
+<div id="adminPanel" style="display:none;"></div>
+<div class="fab-wrap" id="fabWrap" style="display:none;">
+  <button class="fab" onclick="pushToGitHub()">&#128190; Simpan & Push ke GitHub</button>
+</div>
+
+<script>
+// Tampilkan FAB saat admin panel aktif
+const origShow = HTMLElement.prototype.style;
+const observer2 = new MutationObserver(() => {
+  const panel = document.getElementById('adminPanel');
+  const fab   = document.getElementById('fabWrap');
+  if (panel && fab) {
+    fab.style.display = panel.style.display === 'none' ? 'none' : 'block';
+  }
+});
+observer2.observe(document.getElementById('adminPanel'), { attributes: true, attributeFilter: ['style'] });
+
+// Tampilkan FAB setelah login
+const origLogin = doLogin;
+window.doLogin = function() {
+  origLogin();
+  const panel = document.getElementById('adminPanel');
+  if (panel.style.display !== 'none') {
+    document.getElementById('fabWrap').style.display = 'block';
+  }
+};
+</script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -7,390 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --mint: #5effd8;
-  --mint-dim: #3dd4b0;
-  --mint-glow: rgba(94,255,216,0.18);
-  --bg: #0a0e14;
-  --bg2: #0f1520;
-  --bg3: #141c2b;
-  --card: #111827;
-  --card2: #1a2235;
-  --text: #e8edf5;
-  --text-dim: #8899aa;
-  --border: rgba(94,255,216,0.12);
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--mint-dim); border-radius: 3px; }
-::selection { background: var(--mint-glow); color: var(--mint); }
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 2rem;
-  background: rgba(10,14,20,0.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  transition: all 0.3s;
-}
-nav.scrolled { padding: 0.7rem 2rem; background: rgba(10,14,20,0.97); }
-.nav-logo {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem; font-weight: 700;
-  color: var(--text); text-decoration: none;
-  letter-spacing: -0.02em;
-}
-.nav-logo span { color: var(--mint); }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-links a {
-  color: var(--text-dim); text-decoration: none;
-  font-size: 0.9rem; font-weight: 500;
-  transition: color 0.2s; position: relative;
-}
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 2px; background: var(--mint);
-  transition: width 0.3s;
-}
-.nav-links a:hover { color: var(--mint); }
-.nav-links a:hover::after { width: 100%; }
-.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-.nav-toggle span { width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
-/* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  background: var(--bg);
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 60% 40%, rgba(94,255,216,0.06) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 70% at 20% 80%, rgba(99,102,241,0.07) 0%, transparent 65%);
-  opacity: 1;
-  filter: none;
-}
-.hero-overlay {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 60% 40%, rgba(94,255,216,0.06) 0%, transparent 70%),
-              linear-gradient(180deg, transparent 60%, var(--bg) 100%);
-}
-.hero-content {
-  position: relative; z-index: 1;
-  text-align: center; padding: 2rem;
-  max-width: 800px;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: var(--mint-glow); border: 1px solid var(--border);
-  color: var(--mint); font-size: 0.8rem; font-weight: 600;
-  padding: 0.4rem 1rem; border-radius: 100px;
-  margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase;
-}
-.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--mint); border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
-.hero h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 800; line-height: 1.1;
-  letter-spacing: -0.03em; margin-bottom: 1rem;
-}
-.hero h1 .accent { color: var(--mint); }
-.hero-sub {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-dim); margin-bottom: 2.5rem;
-  font-weight: 400;
-}
-.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.75rem 1.75rem; border-radius: 8px;
-  font-size: 0.95rem; font-weight: 600;
-  text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
-}
-.btn-primary {
-  background: var(--mint); color: #0a0e14;
-}
-.btn-primary:hover { background: #7fffea; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(94,255,216,0.3); }
-.btn-outline {
-  background: transparent; color: var(--mint);
-  border: 1.5px solid var(--mint);
-}
-.btn-outline:hover { background: var(--mint-glow); transform: translateY(-2px); }
-.hero-scroll {
-  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  color: var(--text-dim); font-size: 0.75rem; letter-spacing: 0.1em;
-  text-transform: uppercase; animation: bounce 2s infinite;
-}
-.hero-scroll::after {
-  content: ''; width: 1px; height: 40px;
-  background: linear-gradient(to bottom, var(--mint), transparent);
-}
-@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
-/* SECTIONS */
-section { padding: 6rem 2rem; }
-.container { max-width: 1100px; margin: 0 auto; }
-.section-label {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  color: var(--mint); font-size: 0.8rem; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-.section-label::before { content: ''; width: 24px; height: 2px; background: var(--mint); }
-.section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 700; letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-}
-.section-title span { color: var(--mint); }
-.section-desc { color: var(--text-dim); max-width: 600px; margin-bottom: 3rem; }
-/* ABOUT */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1.5fr;
-  gap: 4rem; align-items: center;
-}
-.about-photo-wrap {
-  position: relative; display: flex; justify-content: center;
-}
-.about-photo-frame {
-  position: relative; width: 280px; height: 280px;
-}
-.about-photo-frame::before {
-  content: '';
-  position: absolute; inset: -3px;
-  border-radius: 50%;
-  background: conic-gradient(var(--mint), #3dd4b0, #00bcd4, var(--mint));
-  animation: spin 4s linear infinite;
-  z-index: 0;
-}
-.about-photo-frame::after {
-  content: '';
-  position: absolute; inset: -12px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(94,255,216,0.15) 0%, transparent 70%);
-  animation: glow-pulse 3s ease-in-out infinite;
-  z-index: 0;
-}
-@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-@keyframes glow-pulse { 0%,100%{opacity:0.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.05)} }
-.about-photo-inner {
-  position: relative; z-index: 1;
-  width: 100%; height: 100%;
-  border-radius: 50%; overflow: hidden;
-  border: 4px solid var(--bg);
-  box-shadow: 0 0 40px rgba(94,255,216,0.25), inset 0 0 20px rgba(0,0,0,0.3);
-}
-.about-photo-inner img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center 15%; transform: scale(1.1);
-  display: block;
-}
-.about-float-badge {
-  position: absolute; bottom: 10px; right: -10px; z-index: 2;
-  background: var(--card2); border: 1px solid var(--border);
-  border-radius: 12px; padding: 0.6rem 1rem;
-  display: flex; align-items: center; gap: 0.5rem;
-  font-size: 0.8rem; font-weight: 600; color: var(--mint);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  animation: float 3s ease-in-out infinite;
-}
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-.about-info h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;
-}
-.about-info .tagline { color: var(--mint); font-weight: 600; margin-bottom: 1.5rem; }
-.about-info p { color: var(--text-dim); margin-bottom: 1.5rem; line-height: 1.8; }
-.about-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem; }
-.detail-item { display: flex; flex-direction: column; gap: 0.2rem; }
-.detail-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
-.detail-value { font-size: 0.9rem; font-weight: 600; color: var(--text); }
-/* EXPERIENCE */
-.exp-timeline { position: relative; padding-left: 2rem; }
-.exp-timeline::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2px; background: linear-gradient(to bottom, var(--mint), transparent);
-}
-.exp-item {
-  position: relative; margin-bottom: 2.5rem;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 1.5rem 1.75rem;
-  transition: border-color 0.3s, transform 0.3s;
-}
-.exp-item:hover { border-color: rgba(94,255,216,0.35); transform: translateX(4px); }
-.exp-item::before {
-  content: ''; position: absolute; left: -2.5rem; top: 1.75rem;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--mint); border: 3px solid var(--bg);
-  box-shadow: 0 0 12px rgba(94,255,216,0.5);
-}
-.exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
-.exp-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; }
-.exp-badge {
-  font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.75rem;
-  border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;
-}
-.exp-badge.permanent { background: rgba(94,255,216,0.12); color: var(--mint); border: 1px solid rgba(94,255,216,0.3); }
-.exp-badge.freelance { background: rgba(255,200,94,0.12); color: #ffc85e; border: 1px solid rgba(255,200,94,0.3); }
-.exp-badge.org { background: rgba(150,94,255,0.12); color: #a05eff; border: 1px solid rgba(150,94,255,0.3); }
-.exp-company { color: var(--mint); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
-.exp-period { color: var(--text-dim); font-size: 0.82rem; margin-bottom: 0.75rem; }
-.exp-desc { color: var(--text-dim); font-size: 0.9rem; line-height: 1.7; }
-/* SKILLS */
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-/* SKILL CHARTS */
-.skill-charts-wrap {
-  margin-top: 3.5rem;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-  align-items: start;
-}
-.chart-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 20px; padding: 1.75rem;
-  transition: border-color 0.3s;
-}
-.chart-card:hover { border-color: rgba(94,255,216,0.3); }
-.chart-card-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.85rem; font-weight: 700; color: var(--mint);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
-}
-.chart-card-title::before { content: ''; width: 16px; height: 2px; background: var(--mint); }
-.chart-container { position: relative; }
-@media (max-width: 768px) {
-  .skill-charts-wrap { grid-template-columns: 1fr; }
-}
-.skill-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 1.5rem;
-  transition: border-color 0.3s, transform 0.3s;
-}
-.skill-card:hover { border-color: rgba(94,255,216,0.35); transform: translateY(-4px); }
-.skill-card-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.85rem; font-weight: 700; color: var(--mint);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 1rem;
-}
-.skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.skill-tag {
-  background: var(--card2); border: 1px solid var(--border);
-  color: var(--text); font-size: 0.82rem; font-weight: 500;
-  padding: 0.35rem 0.85rem; border-radius: 8px;
-  transition: all 0.2s;
-}
-.skill-tag:hover { border-color: var(--mint); color: var(--mint); background: var(--mint-glow); }
-/* PROJECTS */
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-.project-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 20px; overflow: hidden;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  display: flex; flex-direction: column;
-}
-.project-card:hover {
-  border-color: rgba(94,255,216,0.4);
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(94,255,216,0.08);
-}
-.project-card.featured { border-color: rgba(94,255,216,0.25); }
-.project-img {
-  height: 180px; background: var(--bg3);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-}
-.project-img-bg {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(94,255,216,0.06) 0%, rgba(99,102,241,0.08) 100%);
-  opacity: 1; filter: none;
-}
-.project-img-icon {
-  position: relative; z-index: 1;
-  font-size: 3.5rem; filter: drop-shadow(0 0 20px rgba(94,255,216,0.4));
-}
-.project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-.project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-.project-tag {
-  font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.65rem;
-  border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;
-  background: var(--mint-glow); color: var(--mint); border: 1px solid rgba(94,255,216,0.25);
-}
-.project-tag.alt { background: rgba(150,94,255,0.1); color: #a05eff; border-color: rgba(150,94,255,0.25); }
-.project-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem;
-}
-.project-desc { color: var(--text-dim); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1rem; flex: 1; }
-.project-features {
-  display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem;
-}
-.project-feature {
-  font-size: 0.75rem; color: var(--text-dim);
-  background: var(--bg3); border: 1px solid var(--border);
-  padding: 0.2rem 0.6rem; border-radius: 6px;
-}
-.project-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-.project-actions .btn { font-size: 0.85rem; padding: 0.6rem 1.25rem; }
-/* CONTACT */
-.contact-section { background: var(--bg2); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-.contact-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
-.contact-info p { color: var(--text-dim); line-height: 1.8; margin-bottom: 2rem; }
-.contact-links { display: flex; flex-direction: column; gap: 1rem; }
-.contact-link {
-  display: flex; align-items: center; gap: 1rem;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 1rem 1.25rem;
-  text-decoration: none; color: var(--text);
-  transition: all 0.25s;
-}
-.contact-link:hover { border-color: rgba(94,255,216,0.4); transform: translateX(4px); color: var(--mint); }
-.contact-link-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: var(--mint-glow); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; flex-shrink: 0;
-}
-.contact-link-text { display: flex; flex-direction: column; }
-.contact-link-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
-.contact-link-value { font-size: 0.9rem; font-weight: 600; }
-/* FOOTER */
-footer {
-  background: var(--bg); border-top: 1px solid var(--border);
-  padding: 2rem; text-align: center;
-  color: var(--text-dim); font-size: 0.85rem;
-}
-footer span { color: var(--mint); }
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg2); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); }
-  .nav-links.open { display: flex; }
-  .nav-toggle { display: flex; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-photo-frame { width: 220px; height: 220px; }
-  .about-details { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: 1fr; }
-}
-/* FADE IN */
-.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -399,6 +16,7 @@ footer span { color: var(--mint); }
   <a href="#hero" class="nav-logo">Henri<span>.</span></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Tentang</a></li>
+    <li><a href="#education">Pendidikan</a></li>
     <li><a href="#experience">Pengalaman</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Proyek</a></li>
@@ -414,12 +32,22 @@ footer span { color: var(--mint); }
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-badge">Tersedia untuk Kolaborasi</div>
-    <h1>Henri Tri<br><span class="accent">Herdiansyah</span></h1>
-    <p class="hero-sub">Mahasiswa Informatika &amp; Web Developer &mdash; UPN Veteran Jawa Timur</p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">&#128187; Lihat Proyek</a>
-      <a href="#contact" class="btn btn-outline">&#128172; Hubungi Saya</a>
+    <div class="hero-text">
+      <div class="hero-badge">Tersedia untuk Kolaborasi</div>
+      <h1>Henri Tri<br><span class="accent">Herdiansyah</span></h1>
+      <p class="hero-sub">Mahasiswa Informatika UPN Veteran Jawa Timur</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">&#128187; Lihat Proyek</a>
+        <a href="#contact" class="btn btn-outline">&#128172; Hubungi Saya</a>
+        <a href="CV-Henri-Tri-Herdiansyah.pdf" download class="btn btn-outline">&#128196; Download CV</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <div class="hero-photo-inner">
+          <img src="henri-hero.jpeg" alt="Henri Tri Herdiansyah" />
+        </div>
+      </div>
     </div>
   </div>
   <div class="hero-scroll">Scroll</div>
@@ -444,7 +72,7 @@ footer span { color: var(--mint); }
       <div class="about-info fade-in">
         <h3>Henri Tri Herdiansyah</h3>
         <p class="tagline">Informatika &bull; UPN Veteran Jawa Timur</p>
-        <p>Mahasiswa Informatika semester 4 yang passionate di bidang web development. Suka membangun aplikasi yang fungsional dan punya pengalaman kerja di dunia kuliner sambil aktif berorganisasi di kampus.</p>
+        <p>Mahasiswa Informatika semester 4 yang passionate di bidang web development dan data analyst. Masih mempelajari tentang pembuatan aplikasi yang fungsional dan juga belajar tentang pengklafikasian dataset dari suatu perusahaan serta punya pengalaman kerja di dunia kuliner sambil aktif berorganisasi di kampus.</p>
         <div class="about-details">
           <div class="detail-item">
             <span class="detail-label">Tanggal Lahir</span>
@@ -466,7 +94,45 @@ footer span { color: var(--mint); }
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
           <a href="mailto:henrith02@gmail.com" class="btn btn-primary">&#9993; Email Saya</a>
           <a href="https://instagram.com/henrith_" target="_blank" class="btn btn-outline">&#128247; Instagram</a>
+          <a href="CV-Henri-Tri-Herdiansyah.pdf" download class="btn btn-outline">&#128196; Download CV</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Pendidikan</div>
+      <h2 class="section-title">Riwayat <span>Pendidikan</span></h2>
+      <p class="section-desc">Perjalanan akademik dari sekolah dasar hingga perguruan tinggi.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-level">&#127979; Perguruan Tinggi</div>
+        <div class="edu-school">UPN Veteran Jawa Timur</div>
+        <div class="edu-major">S1 Informatika &mdash; Semester 4</div>
+        <div class="edu-year">2024 &mdash; Sekarang</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-level">&#127979; SMA</div>
+        <div class="edu-school">SMA Hangtuah 2 Sidoarjo</div>
+        <div class="edu-major">Jurusan IPA</div>
+        <div class="edu-year">2021 &mdash; 2024</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-level">&#127979; SMP</div>
+        <div class="edu-school">SMPN 2 Waru</div>
+        <div class="edu-major">&nbsp;</div>
+        <div class="edu-year">2018 &mdash; 2021</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-level">&#127979; SD</div>
+        <div class="edu-school">SD Hangtuah 10 Juanda</div>
+        <div class="edu-major">&nbsp;</div>
+        <div class="edu-year">2012 &mdash; 2018</div>
       </div>
     </div>
   </div>
@@ -481,14 +147,11 @@ footer span { color: var(--mint); }
       <p class="section-desc">Perjalanan profesional dan kontribusi organisasi yang membentuk karakter dan skill saya.</p>
     </div>
     <div class="exp-timeline">
-      <div class="exp-item fade-in">
-        <div class="exp-header">
-          <span class="exp-role">All Role Staff</span>
-          <span class="exp-badge permanent">Tetap &bull; 5 Bulan</span>
+      <!-- ── PENGALAMAN KERJA ── -->
+      <div style="margin-bottom:1rem;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem;">
+          <span style="width:20px;height:2px;background:var(--mint);display:inline-block;"></span> Pengalaman Kerja
         </div>
-        <div class="exp-company">Zomer Cafe</div>
-        <div class="exp-period">&#128197; 2024 &mdash; 2025</div>
-        <p class="exp-desc">Menjalankan berbagai peran operasional kafe termasuk pelayanan pelanggan, kasir, dan persiapan minuman. Mengembangkan kemampuan multitasking dan komunikasi dalam lingkungan kerja yang dinamis.</p>
       </div>
       <div class="exp-item fade-in">
         <div class="exp-header">
@@ -496,7 +159,7 @@ footer span { color: var(--mint); }
           <span class="exp-badge permanent">Tetap &bull; 1.5 Bulan</span>
         </div>
         <div class="exp-company">Warkop Yangsio</div>
-        <div class="exp-period">&#128197; 2024</div>
+        <div class="exp-period">&#128197; 2026</div>
         <p class="exp-desc">Bertanggung jawab sebagai barista dan kasir secara tetap setelah sebelumnya bergabung sebagai freelance selama 1 bulan. Mengelola transaksi dan menyajikan minuman berkualitas.</p>
       </div>
       <div class="exp-item fade-in">
@@ -505,35 +168,60 @@ footer span { color: var(--mint); }
           <span class="exp-badge freelance">Freelance &bull; 1 Bulan</span>
         </div>
         <div class="exp-company">Warkop Yangsio</div>
-        <div class="exp-period">&#128197; 2024</div>
+        <div class="exp-period">&#128197; 2026</div>
         <p class="exp-desc">Bergabung sebagai freelance untuk membantu operasional warkop, menangani pembuatan minuman dan transaksi pelanggan.</p>
       </div>
       <div class="exp-item fade-in">
         <div class="exp-header">
-          <span class="exp-role">Ketua BLJ HMIF</span>
-          <span class="exp-badge org">Organisasi</span>
+          <span class="exp-role">All Role Staff</span>
+          <span class="exp-badge permanent">Tetap &bull; 5 Bulan</span>
         </div>
-        <div class="exp-company">HMIF UPN Veteran Jatim</div>
-        <div class="exp-period">&#128197; 2026/2027</div>
-        <p class="exp-desc">Memimpin Badan Legislatif dan Juri Himpunan Mahasiswa Informatika UPN Veteran Jawa Timur periode 2026/2027.</p>
+        <div class="exp-company">Zomer Cafe</div>
+        <div class="exp-period">&#128197; 2025</div>
+        <p class="exp-desc">Menjalankan berbagai peran operasional kafe termasuk pelayanan pelanggan, kasir, dan persiapan minuman. Mengembangkan kemampuan multitasking dan komunikasi dalam lingkungan kerja yang dinamis.</p>
       </div>
       <div class="exp-item fade-in">
         <div class="exp-header">
-          <span class="exp-role">Anggota BLJ Komisi Kemahasiswaan</span>
+          <span class="exp-role">Barista (Helper)</span>
+          <span class="exp-badge permanent">Tetap &bull; 2 Bulan</span>
+        </div>
+        <div class="exp-company">Deplon Cafe Smahada</div>
+        <div class="exp-period">&#128197; 2024</div>
+        <p class="exp-desc">Bekerja sebagai helper barista secara full time hingga cafe tutup. Bertugas membantu persiapan dan penyajian minuman, serta kerap menjalankan operasional bar secara mandiri saat barista utama tidak hadir — tetap berkoordinasi dengan kasir untuk kelancaran pelayanan.</p>
+      </div>
+
+      <!-- ── ORGANISASI ── -->
+      <div style="margin:2.5rem 0 1.5rem;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:0.12em;display:flex;align-items:center;gap:0.5rem;">
+          <span style="width:20px;height:2px;background:var(--mint);display:inline-block;"></span> Organisasi &amp; Event
+        </div>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-header">
+          <span class="exp-role">Ketua BLJ HIMATIFA</span>
           <span class="exp-badge org">Organisasi</span>
         </div>
-        <div class="exp-company">UPN Veteran Jatim</div>
+        <div class="exp-company">HIMATIFA UPN Veteran Jatim</div>
+        <div class="exp-period">&#128197; 2026/2027</div>
+        <p class="exp-desc">Memimpin Badan Legislatif Jurusan Himpunan Mahasiswa Informatika UPN Veteran Jawa Timur periode 2026/2027.</p>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-header">
+          <span class="exp-role">Anggota BLJ HIMATIFA - Komisi Kemahasiswaan</span>
+          <span class="exp-badge org">Organisasi</span>
+        </div>
+        <div class="exp-company">HIMATIFA UPN Veteran Jatim</div>
         <div class="exp-period">&#128197; 2025/2026</div>
-        <p class="exp-desc">Aktif sebagai anggota Badan Legislatif dan Juri Komisi Kemahasiswaan tingkat universitas.</p>
+        <p class="exp-desc">Aktif sebagai anggota Badan Legislatif Jurusan Komisi Kemahasiswaan periode 2025/2026.</p>
       </div>
       <div class="exp-item fade-in">
         <div class="exp-header">
           <span class="exp-role">Ketua Pelaksana SONIC 2024</span>
           <span class="exp-badge org">Event</span>
         </div>
-        <div class="exp-company">HMIF UPN Veteran Jatim</div>
+        <div class="exp-company">HIMATIFA UPN Veteran Jatim</div>
         <div class="exp-period">&#128197; 2024</div>
-        <p class="exp-desc">Memimpin pelaksanaan event SONIC 2024, sebuah acara besar yang diselenggarakan oleh Himpunan Mahasiswa Informatika.</p>
+        <p class="exp-desc">Memimpin pelaksanaan event SONIC 2024, sebuah acara malam keakraban untuk angkatan sendiri yang diselenggarakan oleh Himpunan Mahasiswa Informatika.</p>
       </div>
       <div class="exp-item fade-in">
         <div class="exp-header">
@@ -544,6 +232,7 @@ footer span { color: var(--mint); }
         <div class="exp-period">&#128197; 2023/2024</div>
         <p class="exp-desc">Menjabat sebagai Pemangku Adat dalam organisasi Pramuka SMA Hangtuah 2, bertanggung jawab menjaga nilai-nilai dan tradisi kepramukaan.</p>
       </div>
+      
     </div>
   </div>
 </section>
@@ -563,18 +252,24 @@ footer span { color: var(--mint); }
           <span class="skill-tag">HTML5</span>
           <span class="skill-tag">CSS3</span>
           <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">TypeScript</span>
           <span class="skill-tag">Responsive Design</span>
           <span class="skill-tag">Bootstrap</span>
         </div>
       </div>
       <div class="skill-card fade-in">
-        <div class="skill-card-title">&#9881; Backend</div>
+        <div class="skill-card-title">&#9881; Backend & Languages</div>
         <div class="skill-tags">
           <span class="skill-tag">PHP Native</span>
           <span class="skill-tag">MySQL</span>
           <span class="skill-tag">PDO</span>
           <span class="skill-tag">REST API</span>
           <span class="skill-tag">Session Management</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Java</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -635,84 +330,9 @@ footer span { color: var(--mint); }
       <h2 class="section-title">Karya <span>Terbaru</span></h2>
       <p class="section-desc">Proyek yang saya bangun dengan penuh dedikasi menggunakan teknologi web modern.</p>
     </div>
-    <div class="projects-grid">
-      <div class="project-card featured fade-in">
-        <div class="project-img">
-          <div class="project-img-bg"></div>
-          <div class="project-img-icon">&#9889;</div>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">PHP Native</span>
-            <span class="project-tag">MySQL</span>
-            <span class="project-tag alt">Featured</span>
-          </div>
-          <div class="project-title">Genshin Team Farming Tracker</div>
-          <p class="project-desc">Aplikasi web untuk melacak tim farming Genshin Impact secara personal. Dibangun dengan PHP Native dan MySQL, dilengkapi sistem autentikasi, manajemen karakter, dan berbagai fitur tracking yang komprehensif.</p>
-          <div class="project-features">
-            <span class="project-feature">&#10003; 25 Fitur</span>
-            <span class="project-feature">&#10003; Auth System</span>
-            <span class="project-feature">&#10003; CRUD Lengkap</span>
-            <span class="project-feature">&#10003; Upload Foto</span>
-            <span class="project-feature">&#10003; Favorit</span>
-            <span class="project-feature">&#10003; Duplikasi Tim</span>
-          </div>
-          <div class="project-actions">
-            <a href="http://localhost/genshin_tracker/" target="_blank" class="btn btn-primary">&#127760; Buka Demo</a>
-            <a href="http://localhost/genshin_tracker/landing.php" target="_blank" class="btn btn-outline">&#128196; Landing Page</a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card fade-in">
-        <div class="project-img" style="background: linear-gradient(135deg, #1a2235, #0f1520);">
-          <div class="project-img-icon">&#128187;</div>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">HTML</span>
-            <span class="project-tag">CSS</span>
-            <span class="project-tag">JavaScript</span>
-          </div>
-          <div class="project-title">Portfolio Website</div>
-          <p class="project-desc">Website portfolio personal ini sendiri! Dibangun dengan HTML, CSS, dan JavaScript murni tanpa framework. Menampilkan dark theme dengan aksen mint yang elegan dan animasi yang smooth.</p>
-          <div class="project-features">
-            <span class="project-feature">&#10003; Responsive</span>
-            <span class="project-feature">&#10003; Dark Theme</span>
-            <span class="project-feature">&#10003; Animasi CSS</span>
-            <span class="project-feature">&#10003; Single File</span>
-          </div>
-          <div class="project-actions">
-            <a href="#" class="btn btn-outline">&#128065; Sedang Dilihat</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-img" style="background: linear-gradient(135deg, #0f1a2b, #1a0f2b);">
-          <div class="project-img-bg" style="background: linear-gradient(135deg, rgba(160,94,255,0.08) 0%, rgba(94,255,216,0.06) 100%);"></div>
-          <div class="project-img-icon">&#129504;</div>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">NumPy</span>
-            <span class="project-tag alt">Machine Learning</span>
-          </div>
-          <div class="project-title">Neural Network from Scratch</div>
-          <p class="project-desc">Implementasi Jaringan Syaraf Tiruan (JST) murni dari nol menggunakan NumPy — tanpa framework ML. Mencakup Single Layer Perceptron untuk AND/OR dan Multilayer Perceptron dengan backpropagation manual untuk XOR.</p>
-          <div class="project-features">
-            <span class="project-feature">&#10003; Backprop Manual</span>
-            <span class="project-feature">&#10003; SLP &amp; MLP</span>
-            <span class="project-feature">&#10003; Sigmoid/Tanh/ReLU</span>
-            <span class="project-feature">&#10003; Confusion Matrix</span>
-            <span class="project-feature">&#10003; Decision Boundary</span>
-            <span class="project-feature">&#10003; Loss Visualization</span>
-          </div>
-          <div class="project-actions">
-            <a href="#" class="btn btn-outline">&#128196; Lihat Kode</a>
-          </div>
-        </div>
-      </div>
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Diisi otomatis dari projects.json -->
+      <div style="color:var(--text-dim);font-size:0.9rem;padding:2rem 0;">Memuat proyek...</div>
     </div>
   </div>
 </section>
@@ -739,6 +359,20 @@ footer span { color: var(--mint); }
               <div class="contact-link-text">
                 <span class="contact-link-label">Instagram</span>
                 <span class="contact-link-value">@henrith_</span>
+              </div>
+            </a>
+            <a href="https://github.com/Henrith14" target="_blank" class="contact-link">
+              <div class="contact-link-icon">&#128025;</div>
+              <div class="contact-link-text">
+                <span class="contact-link-label">GitHub</span>
+                <span class="contact-link-value">Henrith14</span>
+              </div>
+            </a>
+            <a href="https://wa.me/6281945491507" target="_blank" class="contact-link">
+              <div class="contact-link-icon">&#128241;</div>
+              <div class="contact-link-text">
+                <span class="contact-link-label">WhatsApp</span>
+                <span class="contact-link-value">+62 819-4549-1507</span>
               </div>
             </a>
           </div>
@@ -791,6 +425,65 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+<script>
+// ── RENDER PROJECTS FROM projects.json ───────────────────────────────
+async function loadAndRenderProjects() {
+  const grid = document.getElementById('projectsGrid');
+  try {
+    const res = await fetch('projects.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Gagal memuat projects.json');
+    const projects = await res.json();
+
+    grid.innerHTML = projects.map(p => {
+      // Tags HTML
+      const tagsHtml = (p.tags || []).map(t => `<span class="project-tag">${t}</span>`).join('');
+      const badgeHtml = p.badge
+        ? `<span class="project-tag ${p.badgeType === 'alt' ? 'alt' : ''}">${p.badge}</span>`
+        : '';
+
+      // Features HTML
+      const featuresHtml = (p.features || []).map(f => `<span class="project-feature">&#10003; ${f}</span>`).join('');
+
+      // Links HTML
+      const links = p.links || {};
+      let linksHtml = '';
+      if (links.demo)    linksHtml += `<a href="${links.demo}" target="_blank" class="btn btn-primary">&#127760; Buka Demo</a>`;
+      if (links.landing) linksHtml += `<a href="${links.landing}" target="_blank" class="btn btn-outline">&#128196; Landing Page</a>`;
+      if (links.github)  linksHtml += `<a href="${links.github}" target="_blank" class="btn btn-outline">&#128025; GitHub</a>`;
+      if (!linksHtml)    linksHtml  = `<span class="btn btn-outline" style="opacity:0.5;cursor:default;">&#128065; Coming Soon</span>`;
+
+      // Icon background
+      const imgStyle = p.iconBg ? `style="background:${p.iconBg};"` : '';
+
+      return `
+        <div class="project-card ${p.featured ? 'featured' : ''} fade-in">
+          <div class="project-img" ${imgStyle}>
+            <div class="project-img-bg"></div>
+            <div class="project-img-icon">${p.icon || '📁'}</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">${tagsHtml}${badgeHtml}</div>
+            <div class="project-title">${p.title}</div>
+            <p class="project-desc">${p.description}</p>
+            <div class="project-features">${featuresHtml}</div>
+            <div class="project-actions">${linksHtml}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Re-observe fade-in untuk card yang baru dirender
+    grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  } catch (e) {
+    grid.innerHTML = '<div style="color:var(--text-dim);padding:1rem;">Gagal memuat proyek.</div>';
+    console.error(e);
+  }
+}
+
+loadAndRenderProjects();
 </script>
 
 <!-- Chart.js -->
@@ -864,17 +557,17 @@ const barCtx = document.getElementById('barChart').getContext('2d');
 new Chart(barCtx, {
   type: 'bar',
   data: {
-    labels: ['HTML/CSS', 'JavaScript', 'PHP Native', 'MySQL', 'Python', 'NumPy/Matplotlib', 'Git'],
+    labels: ['HTML/CSS', 'JavaScript', 'React/Next.js', 'TypeScript', 'PHP Native', 'MySQL', 'C++', 'Java', 'Python', 'NumPy/Matplotlib', 'Git'],
     datasets: [{
       label: 'Proficiency',
-      data: [90, 78, 75, 72, 74, 70, 70],
+      data: [90, 78, 80, 75, 75, 72, 72, 70, 74, 70, 70],
       backgroundColor: [
-        mintGlow, mintGlow, mintGlow, mintGlow,
-        purpleFill, purpleFill, mintGlow
+        mintGlow, mintGlow, mintGlow, mintGlow, mintGlow, mintGlow,
+        mintGlow, mintGlow, purpleFill, purpleFill, mintGlow
       ],
       borderColor: [
-        mintBorder, mintBorder, mintBorder, mintBorder,
-        purpleColor, purpleColor, mintBorder
+        mintBorder, mintBorder, mintBorder, mintBorder, mintBorder, mintBorder,
+        mintBorder, mintBorder, purpleColor, purpleColor, mintBorder
       ],
       borderWidth: 1.5,
       borderRadius: 6,

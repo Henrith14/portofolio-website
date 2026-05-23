@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "title": "Genshin Team Farming Tracker",
+    "description": "Aplikasi web untuk melacak tim farming Genshin Impact secara personal. Dibangun dengan PHP Native dan MySQL, dilengkapi sistem autentikasi, manajemen karakter, dan berbagai fitur tracking yang komprehensif.",
+    "tags": ["PHP Native", "MySQL"],
+    "badge": "Featured",
+    "icon": "⚡",
+    "iconBg": "",
+    "features": ["25 Fitur", "Auth System", "CRUD Lengkap", "Upload Foto", "Favorit", "Duplikasi Tim"],
+    "links": {
+      "demo": "http://localhost/genshin_tracker/",
+      "landing": "http://localhost/genshin_tracker/landing.php",
+      "github": "https://github.com/Henrith14/genshin-team-farming-tracker"
+    },
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Portfolio Website",
+    "description": "Website portfolio personal ini sendiri! Dibangun dengan HTML, CSS, dan JavaScript murni tanpa framework. Menampilkan dark theme dengan aksen mint yang elegan dan animasi yang smooth.",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "badge": "",
+    "icon": "💻",
+    "iconBg": "linear-gradient(135deg, #1a2235, #0f1520)",
+    "features": ["Responsive", "Dark Theme", "Animasi CSS", "Single File"],
+    "links": {
+      "demo": "",
+      "landing": "",
+      "github": "https://github.com/Henrith14/portofolio-website"
+    },
+    "featured": false
+  },
+  {
+    "id": 3,
+    "title": "Neural Network from Scratch",
+    "description": "Implementasi Jaringan Syaraf Tiruan (JST) murni dari nol menggunakan NumPy — tanpa framework ML. Mencakup Single Layer Perceptron untuk AND/OR dan Multilayer Perceptron dengan backpropagation manual untuk XOR.",
+    "tags": ["Python", "NumPy"],
+    "badge": "Machine Learning",
+    "badgeType": "alt",
+    "icon": "🧠",
+    "iconBg": "linear-gradient(135deg, #0f1a2b, #1a0f2b)",
+    "features": ["Backprop Manual", "SLP & MLP", "Sigmoid/Tanh/ReLU", "Confusion Matrix", "Decision Boundary", "Loss Visualization"],
+    "links": {
+      "demo": "",
+      "landing": "",
+      "github": "https://github.com/Henrith14/neural-network-from-scratch"
+    },
+    "featured": false
+  },
+  {
+    "id": 4,
+    "title": "FindingFilm",
+    "description": "Aplikasi web database & penjejak film interaktif yang dibangun menggunakan Next.js (App Router), React, TypeScript, dan Tailwind CSS. Terintegrasi dengan TMDB API untuk menyajikan data film secara real-time, lengkap dengan sistem autentikasi, dashboard personal, fitur pencarian filterable, manajemen watchlist, penulisan review, dan tracking status tontonan.",
+    "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS", "TMDB API"],
+    "badge": "Fullstack",
+    "icon": "🎬",
+    "iconBg": "",
+    "features": ["Auth System", "Dashboard Personal", "Sistem Watchlist", "Review & Rating", "Real-time Search", "Integrasi TMDB API"],
+    "links": {
+      "demo": "http://localhost:3000",
+      "landing": "http://localhost:3000/landing",
+      "github": "https://github.com/Henrith14/findingfilm"
+    },
+    "featured": true
+  },
+  {
+    "id": 5,
+    "title": "Kalkulator Klenek & Hari Naas",
+    "description": "Aplikasi CLI bertema mistis untuk menghitung Weton Jawa, Hari Naas, Neptu, Watak, dan Kecocokan Jodoh berdasarkan perhitungan primbon Jawa. Tersedia dalam dua versi bahasa pemrograman: C++ dan Java, dilengkapi tampilan terminal berwarna ANSI yang premium.",
+    "tags": ["C++", "Java"],
+    "badge": "CLI App",
+    "badgeType": "alt",
+    "icon": "🔮",
+    "iconBg": "linear-gradient(135deg, #1a0f2b, #2b0f1a)",
+    "features": ["Hitung Weton Jawa", "Hari Naas (N3 & N7)", "Kecocokan Jodoh", "Validasi NIP PNS", "ANSI Colored CLI", "Dual Language"],
+    "links": {
+      "demo": "",
+      "landing": "",
+      "github": "https://github.com/Henrith14/Tugas_Klenek"
+    },
+    "featured": false
+  }
+]
