@@ -21,9 +21,16 @@ Website portfolio personal yang dibangun dengan HTML, CSS, dan JavaScript murni 
 
 ```
 portfolio/
-├── portfolio-henri.html   # File utama (HTML + CSS + JS dalam satu file)
-├── henri.jpeg             # Foto profil
-└── README.md
+├── portfolio-henri.html         # Halaman utama portfolio (HTML + CSS + JS)
+├── admin.html                   # Panel admin lokal untuk mengelola projects.json
+├── admin.css                    # Gaya tampilan panel admin
+├── projects.json                # Database data proyek dalam format JSON
+├── cv.html                      # Source CV interaktif (optimasi cetak A4)
+├── generate_cv.py               # Skrip otomatisasi kompilasi HTML ke PDF
+├── CV-Henri-Tri-Herdiansyah.pdf # Hasil ekspor PDF CV ter-update
+├── henri.jpeg                   # Foto profil tentang saya
+├── henri-hero.jpeg              # Foto banner hero
+└── README.md                    # Dokumentasi repositori
 ```
 
 ---
@@ -65,6 +72,19 @@ Atau buka lewat Live Server di VS Code untuk pengalaman development yang lebih b
 | Skills | Tech stack + chart visualisasi |
 | Proyek | Card proyek dengan deskripsi & link |
 | Kontak | Email & Instagram |
+
+---
+
+## 📄 Pembaruan & Kompilasi CV
+
+CV Anda dikelola secara lokal menggunakan HTML (`cv.html`) agar mudah di-styling dan ramah sistem ATS. Untuk memperbarui dan mencetak PDF CV secara otomatis:
+
+1. Buka dan edit file [cv.html](file:///c:/Users/henri/.vscode/web%20porto%20henri/cv.html).
+2. Jalankan perintah kompilasi berikut di terminal Anda:
+   ```bash
+   python generate_cv.py
+   ```
+3. File `CV-Henri-Tri-Herdiansyah.pdf` akan ter-update secara otomatis menggunakan kompilasi headless Microsoft Edge.
 
 ---
 
