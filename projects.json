@@ -1,5 +1,22 @@
 [
   {
+    "id": 6,
+    "title": "Global Gym & Fitness Analysis",
+    "description": "Proyek Data Analyst komprehensif untuk mengeksplorasi profil member gym dan pola kehadiran. Menggunakan Python, Pandas, dan Scikit-Learn untuk analisis statistik lanjutan (T-Test, Pearson Correlation) dan prediksi churn pelanggan. Dilengkapi Dashboard Streamlit interaktif yang memukau.",
+    "tags": ["Python", "Pandas", "Scikit-Learn", "Streamlit"],
+    "badge": "Data Science",
+    "badgeType": "alt",
+    "icon": "🏋️‍♂️",
+    "iconBg": "linear-gradient(135deg, #132237, #08101a)",
+    "features": ["Uji T-Test & Korelasi", "Prediksi Churn (ML)", "Streamlit Dashboard", "Interactive Plotly", "Data Storytelling", "Full Pipeline"],
+    "links": {
+      "demo": "",
+      "landing": "",
+      "github": "https://github.com/Henrith14/global-gym-analysis"
+    },
+    "featured": true
+  },
+  {
     "id": 1,
     "title": "Genshin Team Farming Tracker",
     "description": "Aplikasi web untuk melacak tim farming Genshin Impact secara personal. Dibangun dengan PHP Native dan MySQL, dilengkapi sistem autentikasi, manajemen karakter, dan berbagai fitur tracking yang komprehensif.",
